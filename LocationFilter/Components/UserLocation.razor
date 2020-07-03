@@ -1,8 +1,13 @@
-﻿<h3>UserLocation</h3>
+﻿@using LocationFilter.Models
+@inject HttpClient Http
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<h3>UserLocation</h3>
 
 <p>Enter your Location: </p>
 <input @bind="locationInput" />
-<button @onclick=formatUserLocation>Submit</button>
+<button @onclick=formatLocationInput>Submit</button>
 
 
 
@@ -12,15 +17,32 @@
 
     public string formattedLocationInput { get; set; }
 
-    public void formatUserLocation()
+    public locationModel userLocation { get; set; }
+
+    //public UserLocation(IConfiguration configuration)
+    //{
+    //    Configuration = configuration;
+    //}
+    //public IConfiguration Configuration { get; }
+
+    public void formatLocationInput()
     {
         var arrayOne = locationInput.Split(" ");
         var stringOne = String.Join("+", arrayOne);
         var arrayTwo = stringOne.Split(",");
         formattedLocationInput = String.Join("%2C", arrayTwo);
 
-        Console.WriteLine(formattedLocationInput);
-
+        geoCodeLocation();
     }
+
+    public async void geoCodeLocation()
+    {
+        string GEO_CODE_URL = Configuration["GEO_CODE_URL"];
+        string url = GEO_CODE_URL + formattedLocationInput;
+        var response = await Http.GetFromJsonAsync<object>(url);
+        Console.WriteLine(response);
+    }
+
+
 
 }
