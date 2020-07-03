@@ -1,10 +1,20 @@
 ﻿@page "/"
 @using LocationFilter.Components
+@using LocationFilter.Models
 
 <h1>Hello, world!</h1>
 
-<UserLocation/>
+<UserLocation @bind-userLocation=userLocation/>
+
+@if (userLocation != null)
+{
+    <h3>Your Location</h3>
+    <p>Latitude: @userLocation.lat</p>
+    <p>Longitude: @userLocation.lng</p>
+}
 
 @code {
-  
+    public locationModel userLocation { get; set; }
+
+
 }
