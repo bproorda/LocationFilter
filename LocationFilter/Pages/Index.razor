@@ -2,28 +2,37 @@
 @using LocationFilter.Components
 @using LocationFilter.Models
 
-@if (!searchActivated)
-{
-<h1>Hello, world!</h1>
-
-<UserLocation @bind-userLocation=userLocation/>
-
-@if (userLocation != null)
-{
-    <h3>Your Location</h3>
-    <p>Latitude: @userLocation.lat</p>
-    <p>Longitude: @userLocation.lng</p>
 
 
-    <h3>Enter a search radius</h3>
-    <label><input @bind="searchRadius"/> miles</label>
-    <button @onclick=toggleSearchActivated>Submit</button>
-}
-}
-else
-{
-    <Cities searchRadius=@searchRadius  filteredCities=@filteredCities/>
-}
+    @if (userLocation == null)
+    {
+    <h1>Hello, world!</h1>
+
+    <UserLocation @bind-userLocation=userLocation />
+
+    }
+    else
+    {
+        <h3>Your Location</h3>
+        <p>Latitude: @userLocation.lat</p>
+        <p>Longitude: @userLocation.lng</p>
+
+
+        <h3>Enter a @(searchActivated ? "different" : null) search radius</h3>
+        <label><input @bind="searchRadius" /> miles</label>
+        <button @onclick=toggleSearchActivated>Submit</button>
+
+        @if(filteredCities != null)
+        {
+        <Cities searchRadius=@searchRadius filteredCities=@filteredCities />
+        }
+
+    }
+
+
+   
+    
+
 
 @code {
     public locationModel userLocation { get; set; }
@@ -32,7 +41,7 @@ else
 
     void toggleSearchActivated()
     {
-        searchActivated = !searchActivated;
+        searchActivated = true;
         getFilteredCities();
     }
 
@@ -42,7 +51,7 @@ else
 
     void getFilteredCities()
     {
-        var closeCities = Array.FindAll(cities, city => userLocation.distance(city.location) > searchRadius);
+        var closeCities = Array.FindAll(cities, city => userLocation.distance(city.location) < searchRadius);
         Console.WriteLine(closeCities);
         filteredCities = closeCities;
     }
