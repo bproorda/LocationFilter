@@ -22,7 +22,7 @@
 }
 else
 {
-    <Cities searchRadius=@searchRadius/>
+    <Cities searchRadius=@searchRadius  filteredCities=@filteredCities/>
 }
 
 @code {
@@ -33,7 +33,18 @@ else
     void toggleSearchActivated()
     {
         searchActivated = !searchActivated;
+        getFilteredCities();
     }
 
+    public City[] cities { get; set; } = City.GetCities();
+
+    public City[] filteredCities { get; set; }
+
+    void getFilteredCities()
+    {
+        var closeCities = Array.FindAll(cities, city => userLocation.distance(city.location) > searchRadius);
+        Console.WriteLine(closeCities);
+        filteredCities = closeCities;
+    }
 
 }
