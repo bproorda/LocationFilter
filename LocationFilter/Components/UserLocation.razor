@@ -1,5 +1,19 @@
 ﻿<h3>UserLocation</h3>
 
+<p>Enter your Location: </p>
+<input @bind="locationInput" />
+<button @onclick=formatUserLocation>Submit</button>
+
+
+
 @code {
+
+    public string locationInput { get; set; }
+
+    public void formatUserLocation()
+    {
+        Console.WriteLine(locationInput);
+        
+    }
 
 }
