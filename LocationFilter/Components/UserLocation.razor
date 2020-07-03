@@ -10,10 +10,17 @@
 
     public string locationInput { get; set; }
 
+    public string formattedLocationInput { get; set; }
+
     public void formatUserLocation()
     {
-        Console.WriteLine(locationInput);
-        
+        var arrayOne = locationInput.Split(" ");
+        var stringOne = String.Join("+", arrayOne);
+        var arrayTwo = stringOne.Split(",");
+        formattedLocationInput = String.Join("%2C", arrayTwo);
+
+        Console.WriteLine(formattedLocationInput);
+
     }
 
 }
