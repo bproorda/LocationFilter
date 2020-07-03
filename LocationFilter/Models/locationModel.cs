@@ -11,5 +11,15 @@ namespace LocationFilter.Models
 
         public decimal lng { get; set; }
 
+        public decimal distance(locationModel cityLocation )
+        {
+            return default;
+        }
+
+        public decimal lngMiles(decimal lng)
+        {
+            return default;
+        }
+
     }
 }
