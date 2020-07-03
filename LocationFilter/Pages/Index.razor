@@ -2,6 +2,8 @@
 @using LocationFilter.Components
 @using LocationFilter.Models
 
+@if (!searchActivated)
+{
 <h1>Hello, world!</h1>
 
 <UserLocation @bind-userLocation=userLocation/>
@@ -11,10 +13,27 @@
     <h3>Your Location</h3>
     <p>Latitude: @userLocation.lat</p>
     <p>Longitude: @userLocation.lng</p>
+
+
+    <h3>Enter a search radius</h3>
+    <label><input @bind="searchRadius"/> miles</label>
+    <button @onclick=toggleSearchActivated>Submit</button>
+}
+}
+else
+{
+    <Cities searchRadius=@searchRadius/>
 }
 
 @code {
     public locationModel userLocation { get; set; }
+    public decimal searchRadius { get; set; } = 500;
+    public bool searchActivated { get; set; } = false;
+
+    void toggleSearchActivated()
+    {
+        searchActivated = !searchActivated;
+    }
 
 
 }

@@ -1,5 +1,18 @@
-﻿<h3>Cities</h3>
+﻿@using LocationFilter.Models
+
+<h3>Cities</h3>
+
+@foreach (var city in cities)
+{
+    <p>Name: @city.name</p>
+    <p>Location: Lat: @city.location.lat    Long: @city.location.lng</p>
+}
 
 @code {
+
+    [Parameter]
+    public decimal searchRadius { get; set; }
+
+    public City[] cities { get; set; } = City.GetCities();
 
 }
