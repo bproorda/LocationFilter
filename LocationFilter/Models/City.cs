@@ -16,12 +16,12 @@ namespace LocationFilter.Models
         {
             City[] cities = new City[]
             {
-                new City {name = "Cedar Rapids", location = new locationModel { lat = 41.978122M, lng = -91.669808M}},
-                new City {name = "Iowa City", location = new locationModel { lat = 41.66124M, lng = -91.530128M}},
-                new City {name = "Waterloo", location = new locationModel { lat = 42.493469M, lng = -92.34364M}},
-                new City {name = "Amana", location = new locationModel { lat = 41.801656M, lng = -91.874512M}},
-                new City {name = "Grinnel", location = new locationModel { lat = 41.743267M, lng = -92.727362M}},
-                new City {name = "Dubuque", location = new locationModel { lat = 42.505512M, lng = -90.667314M}}
+                new City {name = "Cedar Rapids", location = new locationModel { lat = 41.978122, lng = -91.669808}},
+                new City {name = "Iowa City", location = new locationModel { lat = 41.66124, lng = -91.530128}},
+                new City {name = "Waterloo", location = new locationModel { lat = 42.493469, lng = -92.34364}},
+                new City {name = "Amana", location = new locationModel { lat = 41.801656, lng = -91.874512}},
+                new City {name = "Grinnel", location = new locationModel { lat = 41.743267, lng = -92.727362}},
+                new City {name = "Dubuque", location = new locationModel { lat = 42.505512, lng = -90.667314}}
             };
 
             return cities;

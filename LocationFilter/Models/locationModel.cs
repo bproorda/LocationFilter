@@ -7,16 +7,16 @@ namespace LocationFilter.Models
 {
     public class locationModel
     {
-        public decimal lat { get; set; }
+        public double lat { get; set; }
 
-        public decimal lng { get; set; }
+        public double lng { get; set; }
 
-        public decimal distance(locationModel cityLocation )
+        public double distance(locationModel cityLocation )
         {
             return default;
         }
 
-        public decimal lngMiles(decimal lng)
+        public double lngMiles(double lng)
         {
             return default;
         }
