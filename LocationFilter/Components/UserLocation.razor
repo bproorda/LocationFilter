@@ -39,8 +39,8 @@
     {
         string GEO_CODE_URL = Configuration["GEO_CODE_URL"];
         string url = GEO_CODE_URL + formattedLocationInput;
-        var response = await Http.GetFromJsonAsync<object>(url);
-        Console.WriteLine(response);
+        var response = await Http.GetFromJsonAsync<responseModel>(url);
+        Console.WriteLine(response.results[0].locations[0].LatLng.lat);
     }
 
 
