@@ -1,7 +1,59 @@
 ﻿@page "/"
+@using LocationFilter.Components
+@using LocationFilter.Models
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    @if (userLocation == null)
+    {
+    <h1>Hello, world!</h1>
+
+    <UserLocation @bind-userLocation=userLocation />
+
+    }
+    else
+    {
+        <h3>Your Location</h3>
+        <p>Latitude: @userLocation.lat</p>
+        <p>Longitude: @userLocation.lng</p>
+
+
+        <h3>Enter a @(searchActivated ? "different" : null) search radius</h3>
+        <label><input @bind="searchRadius" /> miles</label>
+        <button @onclick=toggleSearchActivated>Submit</button>
+
+        @if(filteredCities != null)
+        {
+        <Cities searchRadius=@searchRadius filteredCities=@filteredCities />
+        }
+
+    }
+
+
+   
+    
+
+
+@code {
+    public locationModel userLocation { get; set; }
+    public double searchRadius { get; set; } = 500;
+    public bool searchActivated { get; set; } = false;
+
+    void toggleSearchActivated()
+    {
+        searchActivated = true;
+        getFilteredCities();
+    }
+
+    public City[] cities { get; set; } = City.GetCities();
+
+    public City[] filteredCities { get; set; }
+
+    void getFilteredCities()
+    {
+        var closeCities = Array.FindAll(cities, city => userLocation.distance(city.location) < searchRadius);
+        Console.WriteLine(closeCities);
+        filteredCities = closeCities;
+    }
+
+}

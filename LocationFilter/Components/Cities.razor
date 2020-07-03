@@ -1,0 +1,28 @@
+﻿@using LocationFilter.Models
+
+<h3>Cities within @searchRadius Miles Of Your Location</h3>
+
+
+@foreach (var city in filteredCities)
+{
+    <p>Name: @city.name</p>
+    <p>Location: Lat: @city.location.lat    Long: @city.location.lng</p>
+}
+
+@code {
+
+    [Parameter]
+    public double searchRadius { get; set; }
+
+    [Parameter]
+    public locationModel userLocation { get; set; }
+
+   
+    [Parameter]
+    public City[] filteredCities { get; set; }
+
+ 
+
+
+
+}

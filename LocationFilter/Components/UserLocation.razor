@@ -1,0 +1,54 @@
+﻿@using LocationFilter.Models
+@inject HttpClient Http
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+
+<p>Enter your Location: </p>
+<input @bind="locationInput" />
+<button @onclick=formatLocationInput>Submit</button>
+
+
+
+@code {
+
+    public string locationInput { get; set; }
+
+    public string formattedLocationInput { get; set; }
+
+    [Parameter]
+    public locationModel userLocation { get; set; }
+
+    [Parameter]
+    public EventCallback<locationModel> userLocationChanged { get; set; }
+
+
+
+    public void formatLocationInput()
+    {
+        var arrayOne = locationInput.Split(" ");
+        var stringOne = String.Join("+", arrayOne);
+        var arrayTwo = stringOne.Split(",");
+        formattedLocationInput = String.Join("%2C", arrayTwo);
+
+        geoCodeLocation();
+    }
+
+    public async void geoCodeLocation()
+    {
+        string GEO_CODE_URL = Configuration["GEO_CODE_URL"];
+        string url = GEO_CODE_URL + formattedLocationInput;
+        var response = await Http.GetFromJsonAsync<responseModel>(url);
+        userLocation = response.results[0].locations[0].LatLng;
+        Console.WriteLine(response.results[0].locations[0].LatLng.lat);
+        await updateUserLocation();
+    }
+
+    async Task updateUserLocation()
+    {
+        await userLocationChanged.InvokeAsync(userLocation);
+    }
+
+
+
+}
