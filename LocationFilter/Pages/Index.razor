@@ -51,7 +51,8 @@
 
     void getFilteredCities()
     {
-        var closeCities = Array.FindAll(cities, city => userLocation.distance(city.location) < searchRadius);
+        //var closeCities = Array.FindAll(cities, city => userLocation.distance(city.location) < searchRadius);
+        var closeCities = Array.FindAll(cities, city => (userLocation.haversine(city.location) < searchRadius));
         Console.WriteLine(closeCities);
         filteredCities = closeCities;
     }
